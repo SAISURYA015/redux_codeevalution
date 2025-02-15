@@ -1,3 +1,5 @@
+// how to create reducer function and initialize store
+
 import { createStore } from "redux"
 
 const initialState = {
@@ -10,10 +12,11 @@ function reducer(state = initialState, action) {
 
   // switch case
   switch(action.type){
-    case "deposit": return {...state, balance:state.balance + action.payload};
-    case "withdraw":  return {...state, balance:state.balance - action.payload};
+    case "deposit": return {...state, balance:state.balance + +action.payload};
+    case "withdraw":  return {...state, balance:state.balance - +action.payload};
     case "mobileUpdate": return {...state, mobile:action.payload};
     case "nameUpdate": return {...state, fullName:action.payload};
+    case "reset": return initialState;
     default:
       return state
   }
@@ -40,11 +43,13 @@ function reducer(state = initialState, action) {
 
 const store = createStore(reducer)
 
-console.log(store.getState())
+// console.log(store.getState())
 
-store.dispatch({type: "deposit", payload: 1000});
-store.dispatch({type: "withdraw", payload: 10})
-store.dispatch({type: "mobileUpdate", payload: '9898546678'})
-store.dispatch({type: "nameUpdate", payload: 'surya'})
+// store.dispatch({type: "deposit", payload: 1000});
+// store.dispatch({type: "withdraw", payload: 10})
+// store.dispatch({type: "mobileUpdate", payload: '9898546678'})
+// store.dispatch({type: "nameUpdate", payload: 'surya'})
 
-console.log(store.getState())
+// console.log(store.getState())
+
+export default store;
