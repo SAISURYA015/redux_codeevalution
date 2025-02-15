@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { deposit, mobileUpdate, nameUpadate, reset, withdraw } from './Action';
 
 function Form() {
 
@@ -22,12 +23,12 @@ function Form() {
         </div>
         <button 
           className='btn btn-primary col-1'
-          onClick={() => dispatch({type: "deposit", payload: amount}, seAmount(""))}
+          onClick={() => dispatch(deposit(amount), seAmount(""))}
         
         >Deposit</button>
         <button 
           className='btn btn-danger col-1 mx-2'
-          onClick={() => dispatch({type: "withdraw", payload: amount}, seAmount(""))}
+          onClick={() => dispatch(withdraw(amount), seAmount(""))}
         
         >Withdraw</button>
       </div>
@@ -42,7 +43,7 @@ function Form() {
         </div>
         <button 
           className='btn btn-primary col-1'
-          onClick={() => dispatch({type: "nameUpdate", payload: fullname}, setFullname(""))}
+          onClick={() => dispatch(nameUpadate(fullname), setFullname(""))}
         
         >Update</button>
         
@@ -58,16 +59,16 @@ function Form() {
         </div>
         <button 
           className='btn btn-primary col-1'
-          onClick={() => dispatch({type: "mobileUpdate", payload: mobile}, setMobile(""))}
+          onClick={() => dispatch(mobileUpdate(mobile), setMobile(""))}
         
-        >Mobile</button>
+        >Update</button>
         
         
         
       </div>
       <button 
           className='btn btn-danger col-1 mx-2 mt-2'
-          onClick={() => dispatch({type: "reset", payload: mobile}, setMobile(""))}
+          onClick={() => dispatch(reset(reset), setMobile(""))}
         
         >Reset</button>
     </div>
