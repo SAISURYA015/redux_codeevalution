@@ -8,6 +8,7 @@ function Form() {
   const [amount, seAmount] = useState("");
   const [fullname, setFullname] = useState("");
   const [mobile, setMobile] = useState(null);
+  const [transactionId, updateTransactionId] = useState(0);
 
   return (
     <div className='container'>
@@ -23,12 +24,31 @@ function Form() {
         </div>
         <button 
           className='btn btn-primary col-1'
-          onClick={() => dispatch(deposit(amount), seAmount(""))}
+          onClick={() => 
+            dispatch(deposit(amount),
+            updateTransactionId(transactionId+1),
+            dispatch({type: "ADD_TRANSACTION", payload: {
+              id:transactionId, 
+              amount: amount,
+              date: new Date(),
+              type:"Credit"
+            }}),
+            seAmount("")
+          )}
         
         >Deposit</button>
         <button 
           className='btn btn-danger col-1 mx-2'
-          onClick={() => dispatch(withdraw(amount), seAmount(""))}
+          onClick={() => 
+            dispatch(withdraw(amount),
+            updateTransactionId(transactionId + 1),
+            dispatch({type: "ADD_TRANSACTION", payload: {
+              id:transactionId,
+              amount: amount,
+              date: new Date(),
+              type:"Debit"
+            }}), 
+            seAmount(""))}
         
         >Withdraw</button>
       </div>
@@ -61,10 +81,7 @@ function Form() {
           className='btn btn-primary col-1'
           onClick={() => dispatch(mobileUpdate(mobile), setMobile(""))}
         
-        >Update</button>
-        
-        
-        
+        >Update</button>  
       </div>
       <button 
           className='btn btn-danger col-1 mx-2 mt-2'

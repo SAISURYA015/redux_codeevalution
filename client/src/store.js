@@ -1,6 +1,7 @@
 // how to create reducer function and initialize store
 
-import { createStore } from "redux"
+import { createStoreHook } from "react-redux";
+import { combineReducers, createStore } from "redux"
 
 const initialState = {
   balance: 0,
@@ -8,7 +9,7 @@ const initialState = {
   mobile: null,
 }
 
-function reducer(state = initialState, action) {
+function accountReducer(state = initialState, action) {
 
   // switch case
   switch(action.type){
@@ -34,14 +35,40 @@ function reducer(state = initialState, action) {
   //   return state
 }
 
+function transactionReducer(state=[], action) {
+  switch (action.type) {
+    case "ADD_TRANSACTION":
+      return [
+        ...state, 
+        {
+          id: action.payload.id,
+          amount: action.payload.amount, 
+          type: action.payload.type, 
+          date: action.payload.date
+        },
+      ];
+
+    default:
+      return state;
+  }
+}
+
+
+
 // dispatch({type: "deposit", payload: 1000})
 // dispatch({type: "withdraw", payload: 1000})
 // dispatch({type: "mobileUpdate", payload: '0000000000'})
 // dispatch({type: "nameUpdate", payload: 'surya'})
 
 
+let rootReducer = combineReducers(
+  {
+    account: accountReducer,
+    transaction: transactionReducer
+  }
+)
+const store = createStore(rootReducer)
 
-const store = createStore(reducer)
 
 // console.log(store.getState())
 
